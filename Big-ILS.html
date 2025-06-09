@@ -1,0 +1,835 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Creative Resolution to Success</title>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!--Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <!--light-slider-css-->
+    <link rel="stylesheet" type="text/css" href="css/lightslider.css">
+
+    <!--light-slider-js-->
+    <script src="javascript/lightslider.js"></script>
+
+    <!--Icons-->
+    <link rel="shortcut icon" href="pictures/crts-logo-1.png">
+    <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+    <!-- Firebase App (core SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+
+    <!-- Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+
+
+</head>
+
+<!-- Firebase + Login/Signup Script -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+    // Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyDuoO0FKqRU7m736zyfdnujaAikPs7tYQQ",
+        authDomain: "crts-72fe4.firebaseapp.com",
+        databaseURL: "https://crts-72fe4-default-rtdb.firebaseio.com",
+        projectId: "crts-72fe4",
+        storageBucket: "crts-72fe4.appspot.com",
+        messagingSenderId: "151915764103",
+        appId: "1:151915764103:web:cab663009e02092db49b22",
+        measurementId: "G-9225R4QC6H"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    // SIGNUP
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("signup-name").value;
+        const email = document.getElementById("signup-email").value;
+        const password = document.getElementById("signup-password").value;
+
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                set(ref(db, 'users/' + user.uid), {
+                    fullname: name,
+                    email: user.email
+                });
+                alert("Signup successful! Welcome " + user.email);
+                document.querySelector(".sign-up-form").style.display = "none";
+                document.querySelector(".login-form").style.display = "block";
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    });
+
+    // LOGIN
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                alert("Login successful! Welcome back " + user.email);
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    });
+
+    // TOGGLE FORMS
+    document.querySelector(".sign-up-btn").onclick = () => {
+        document.querySelector(".login-form").style.display = "none";
+        document.querySelector(".sign-up-form").style.display = "block";
+    };
+    document.querySelector(".already-account").onclick = () => {
+        document.querySelector(".sign-up-form").style.display = "none";
+        document.querySelector(".login-form").style.display = "block";
+    };
+</script>
+
+
+
+
+<body>
+    <!--navigation-->
+    <nav>
+
+        <!--social-media-->
+        <div class="social-call">
+            <!--social links-->
+            <div class="social">
+                <a href="https://www.facebook.com/CRTS.Apparel/"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/crtsapparel/"><i class="fab fa-instagram"></i></a>
+            </div>
+            <!--phone number-->
+            <div class="phone">
+                <span>CREATIVE RESOLUTION TO SUCCESS.</span>
+            </div>
+        </div>
+
+        <!--Menu bar-->
+        <div class="navigation">
+            <!--logo-->
+            <a href="#" class="logo">
+                <img src="pictures/crts-logo-1.png">
+            </a>
+
+            <!--menu-->
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#" id="nav_menu_success_2021">SÜCCESS 2021</a></li>
+                <li><a href="#" id="nav_menu_orbits">Orbit</a></li>
+                <li><a href="#" id="nav_menu_feb">February 2020</a></li>
+            </ul>
+
+            <!--right menu-->
+            <div class="right-menu">
+                <!--search-->
+                <a href="#" class="search">
+                    <i class="fas fa-search"></i>
+                </a>
+                <!--user-->
+                <a href="#" class="user">
+                    <i class="fas fa-user"></i>
+                </a>
+                <!--cart-icon-->
+                <a href="#" onclick="nav_open_close()">
+                    <i class="fas fa-shopping-cart">
+                        <!--number of product in cart-->
+                        <span class="num-cart-product">0</span>
+                    </i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!--search bar-->
+    <div class="search-bar">
+        <!--search input-->
+        <div class="search-input">
+            <!--input-->
+            <input type="text" placeholder="Search">
+            <!--cancel button-->
+            <a href="#" class="search-cancel">
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+    </div>
+
+    <!--login and signup form-->
+    <div class="form">
+        <!--login-->
+        <div class="login-form">
+            <a href="#" class="form-cancel"><i class="fas fa-times"></i></a>
+            <strong>Log In</strong>
+            <form id="loginForm">
+                <input type="email" placeholder="Email" id="login-email" required>
+                <input type="password" placeholder="Password" id="login-password" required>
+                <input type="submit" value="Log In">
+            </form>
+            <div class="form-btns">
+                <a href="#" class="sign-up-btn">No account yet? Sign up here</a>
+            </div>
+        </div>
+
+        <!--sign up-->
+        <div class="sign-up-form" style="display: none;">
+            <a href="#" class="form-cancel"><i class="fas fa-times"></i></a>
+            <strong>Sign Up</strong>
+            <form id="signupForm">
+                <input type="text" placeholder="Full name" id="signup-name" required>
+                <input type="email" placeholder="Email" id="signup-email" required>
+                <input type="password" placeholder="Password" id="signup-password" required>
+                <input type="submit" value="Sign Up">
+            </form>
+            <div class="form-btns">
+                <a href="#" class="already-account">Already have an account? Log in</a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active ">
+                <img class="d-block w-100" src="pictures/cover.jpg" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <div class="slider-text-container">
+
+                        <div class="f-slider-text">
+                            <span>CRTS' Süccess 2021</span>
+                            <strong>Holiday Collection</strong>
+                            <a href="#" id="nav_menu_success_2021" class="f-slider-btn">Shop Now</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="pictures/cover3.jpg" alt="Second slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <div class="slider-text-container">
+
+                        <div class="f-slider-text">
+                            <span>CRTS August 2020</span>
+                            <strong style="color: white;">Spark Your Brain Tee</strong>
+                            <a href="#" class="f-slider-btn">Shop Now</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="pictures/cover4.jpg" alt="Third slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <div class="slider-text-container">
+
+                        <div class="f-slider-text">
+                            <span>CRTS March 2021</span>
+                            <strong style="color: white;">CRTS Orbit Tee</strong>
+                            <a href="#" id="nav_menu_orbits" class="f-slider-btn">Shop Now</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <section id="feature" class="section-p1">
+        <div class="fe-box">
+            <img src="images/feature_1.jpg">
+            <h6>Free Shipping</h6>
+        </div>
+
+        <div class="fe-box">
+            <img src="images/feature_2.jpg">
+            <h6>Online Shopping</h6>
+        </div>
+
+        <div class="fe-box">
+            <img src="images/feature_3.jpg">
+            <h6>Save Money</h6>
+        </div>
+
+        <div class="fe-box">
+            <img src="images/feature_4.jpg">
+            <h6>Promotions</h6>
+        </div>
+
+        <div class="fe-box">
+            <img src="images/feature_5.jpg">
+            <h6>Happy Sell</h6>
+        </div>
+
+        <div class="fe-box">
+            <img src="images/feature_6.jpg">
+            <h6>24/7 Support</h6>
+        </div>
+
+    </section>
+
+    <section id="product1" class="section-p1 crts_class">
+        <strong style="font-size: 3rem;">Featured Collection</strong>
+        <p>CRTS' Süccess 2021 Holiday Collection</p>
+        <div class="pro-container" id="display_product_crts">
+
+        </div>
+    </section>
+
+
+
+    <section id="banner" class="section-m1">
+        <h4>Creative Resolution to Success</h4>
+        <strong style="font-size: 2rem; color: white; padding-bottom: 10px;">Spark Your<span> Brain </span>Tee
+            Collection</strong>
+        <button class="normal">Explore More</button>
+    </section>
+
+    <section id="product1" class="section-p1 orbit_class">
+        <strong style="font-size: 3rem;">Creative Resolution to Success</strong>
+        <p>CRTS' Orbit Collection</p>
+        <div class="pro-container" id="display_product_orbits">
+
+        </div>
+    </section>
+
+    <section id="banner2" class="section-m1">
+        <h4 style="color: white;">Check the All New</h4>
+        <strong style="font-size: 2rem; color: white; padding-bottom: 10px;">February<span> Collection
+            </span>2020</strong>
+        <button class="normal">Explore More</button>
+    </section>
+
+    <section id="product1" class="section-p1 feb_class">
+        <strong style="font-size: 3rem;">Creative Resolution to Success</strong>
+        <p>CRTS' February Collection 2020</p>
+        <div class="pro-container" id="display_product_feb">
+
+        </div>
+    </section>
+
+    <section id="banner2" class="section-m1">
+        <h4 style="color: white;">Check the All New</h4>
+        <strong style="font-size: 2rem; color: white; padding-bottom: 10px;">February<span> Collection
+            </span>2020</strong>
+        <button class="normal">Explore More</button>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="pictures/crts-logo-1.png" style="height: 50px; width: 105px;">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong>Bocaue, Bulacan</p>
+            <p><strong>Phone: </strong>+8376-5763</p>
+            <p><strong>Hours: </strong>10:00am - 5:00pm - Mon-Sat</p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Deliery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms and Conditions</a>
+        </div>
+
+        <div class="col">
+            <h4>My account</h4>
+            <a href="#">Sign in</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col install">
+            <h4>Pay Online</h4>
+            <p>Secured Payment Gateways</p>
+            <div class="row">
+                <img src="pictures/Mastercard-logo.svg.png">
+                <img src="pictures/Visa_Logo.png">
+            </div>
+
+        </div>
+    </footer>
+
+    <div id="mySidebar" class="sidebar_w3 d-flex flex-column" style="height: 100vh;">
+        <a href="javascript:void(0)" class="closebtn_w3" onclick="nav_open_close()">×</a>
+        <div class="container-fluid d-flex flex-column flex-grow-1">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h5 class="text-center">View Cart</h5>
+                    <hr>
+                </div>
+            </div>
+
+            <!-- Cart details (fills available space) -->
+            <div id="cart_details" class="flex-grow-1 overflow-auto">
+                <!-- Cart items go here -->
+            </div>
+
+            <!-- Checkout Button at the bottom right -->
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-dark me-3 mb-3" onclick="openCheckout()">CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+
+    <!--CheckOutPopUP-->
+
+    <!-- Checkout Popup Modal -->
+    <!-- CHECKOUT POPUP -->
+    <div id="checkoutModal" class="checkout-modal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.5); z-index:1000;">
+        <div class="checkout-content"
+            style="width: 90%; max-width: 900px; margin: 50px auto; background: #f0f6e7; padding: 20px; border-radius: 10px; position: relative;">
+
+            <!-- Top logo/title -->
+
+            <!-- Top header (fills full width, matches image) -->
+            <div
+                style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0; margin: 0; background-color: white; border-bottom: 1px solid #ccc;">
+                <div style="display: flex; align-items: center; padding: 20px;">
+                    <img src="pictures/crts-logo-1.png" alt="Logo" style="height: 40px; margin-right: 10px;">
+                    <span style="font-weight: bold;">CHECKOUT</span>
+                </div>
+                <div style="padding: 20px;">
+                    <button onclick="closeCheckout()"
+                        style="border: 1px solid black; background: white; padding: 8px 16px; cursor: pointer;">Continue
+                        Shopping</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" id="checkout-items"></div>
+
+                <div class="col-md-6">
+                    <div style="margin-top: 20px;">
+                        <p>Subtotal: <span id="checkout-subtotal">₱ 0.00</span></p>
+                        <p>Shipping Total: ₱ <span id="shipping-total">38.00</span></p>
+                        <p><strong>Total Payment: <span id="checkout-total">₱ 0.00</span></strong></p>
+
+                        <div class="d-flex mb-2">
+                            <button class="btn btn-outline-dark w-50 me-2">Gcash</button>
+                            <button class="btn btn-outline-dark w-50">Cash</button>
+                        </div>
+
+                        <button class="btn btn-dark w-100">PAY</button>
+
+                        <!-- Customer Information Section -->
+                        <div class="mt-4">
+                            <h5>Customer Information</h5>
+                            <div class="mb-2">
+                                <label for="customer-name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="customer-name" placeholder="Juan Dela Cruz">
+                            </div>
+                            <div class="mb-2">
+                                <label for="customer-phone" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="customer-phone" placeholder="09xxxxxxxxx">
+                            </div>
+                            <div class="mb-2">
+                                <label for="customer-address" class="form-label">Address</label>
+                                <textarea class="form-control" id="customer-address" rows="2"
+                                    placeholder="House No., Street, City"></textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label for="customer-message" class="form-label">Message (Optional)</label>
+                                <textarea class="form-control" id="customer-message" rows="2"
+                                    placeholder="Any special notes or delivery instructions?"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- Checkout Trigger -->
+    <button class="btn btn-dark" onclick="openCheckout()">CHECKOUT</button>
+
+
+
+    <script>
+        function openCheckout() {
+            let subtotal = 0;
+            $('#checkout-items').empty();
+
+            $.each(data_cart, function (j, z) {
+                $.each(data, function (i, v) {
+                    if (data[i].id == data_cart[j].id) {
+                        const qty = data_cart[j].qty || 1;
+                        const itemTotal = data[i].price * qty;
+
+                        subtotal += itemTotal;
+
+                        let html = `
+                    <div class="card mb-3 p-2">
+                        <div class="row g-2">
+                            <div class="col-4">
+                                <img src="${data[i].image}" alt="Image" class="img-fluid" style="max-height: 120px; object-fit: cover;">
+                            </div>
+                            <div class="col-8">
+                                <h6>${data[i].title}</h6>
+                                <p>Qty: ${qty}</p> <!-- ✅ Correctly uses qty -->
+                                <p><strong>₱ ${itemTotal.toFixed(2)}</strong></p>
+                                <button class="btn btn-sm btn-danger" onclick="removeFromCheckout(${j})">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                        $('#checkout-items').append(html);
+                    }
+                });
+            });
+
+            const shipping = 38;
+            $('#checkout-subtotal').text(`₱ ${subtotal.toFixed(2)}`);
+            $('#checkout-total').text(`₱ ${(subtotal + shipping).toFixed(2)}`);
+            $('#checkoutModal').show();
+        }
+
+        function closeCheckout() {
+            $('#checkoutModal').hide();
+        }
+
+        function removeFromCheckout(index) {
+            data_cart.splice(index, 1); // Remove item from cart
+            nav_open_close(); // Refresh sidebar
+            nav_open_close(); // Toggle open again
+            openCheckout();   // Refresh checkout popup
+        }
+    </script>
+
+
+
+
+
+    <!--script-->
+    <script type="text/javascript">
+
+        var a = 0;
+        var html = '';
+        var side_nav = 0;
+
+        // DATA variant_id 1 = crts , 2 = orbits , 3 = feb
+        var data = [
+            {
+                id: '1',
+                varian_id: '1',
+                variant: 'CRTS Apparel',
+                title: 'Basic Süccess Black',
+                image: 'pictures/featured-1.jpg',
+                price: '550.00'
+            },
+            {
+                id: '2',
+                varian_id: '1',
+                variant: 'CRTS Apparel',
+                title: 'Basic Süccess Black Feat 2',
+                image: 'pictures/featured-2.jpg',
+                price: '560.00'
+            },
+            {
+                id: '3',
+                varian_id: '1',
+                variant: 'CRTS Apparel',
+                title: 'Basic Süccess Black Feat 3',
+                image: 'pictures/featured-3.jpg',
+                price: '570.00'
+            },
+            {
+                id: '4',
+                varian_id: '1',
+                variant: 'CRTS Apparel',
+                title: 'Basic Süccess Black Feat 4',
+                image: 'pictures/featured-4.jpg',
+                price: '580.00'
+            },
+            {
+                id: '5',
+                varian_id: '2',
+                variant: 'CRTS Apparel',
+                title: 'ORBITS Tshirt 1',
+                image: 'pictures/orbit1.jpg',
+                price: '550.00'
+            },
+            {
+                id: '6',
+                varian_id: '2',
+                variant: 'CRTS Apparel',
+                title: 'ORBITS Tshirt 2',
+                image: 'pictures/orbit2.jpg',
+                price: '560.00'
+            },
+            {
+                id: '7',
+                varian_id: '2',
+                variant: 'CRTS Apparel',
+                title: 'ORBITS Tshirt 3',
+                image: 'pictures/orbit3.jpg',
+                price: '570.00'
+            },
+            {
+                id: '8',
+                varian_id: '2',
+                variant: 'CRTS Apparel',
+                title: 'ORBITS Tshirt 4',
+                image: 'pictures/orbit4.jpg',
+                price: '580.00'
+            },
+            {
+                id: '9',
+                varian_id: '3',
+                variant: 'CRTS Apparel',
+                title: 'FEB Tshirt 1',
+                image: 'pictures/feb1.jpg',
+                price: '580.00'
+            },
+            {
+                id: '10',
+                varian_id: '3',
+                variant: 'CRTS Apparel',
+                title: 'FEB TSHIRT 2',
+                image: 'pictures/feb2.jpg',
+                price: '580.00'
+            },
+            {
+                id: '11',
+                varian_id: '3',
+                variant: 'CRTS Apparel',
+                title: 'FEB TSHIRT 3',
+                image: 'pictures/feb3.jpg',
+                price: '580.00'
+            },
+            {
+                id: '12',
+                varian_id: '3',
+                variant: 'CRTS Apparel',
+                title: 'FEB TSHIRT 4',
+                image: 'pictures/feb4.jpg',
+                price: '580.00'
+            },
+        ];
+
+        var data_cart = [];
+        var data_cart_orbits = [];
+
+        $(document).on('click', '#nav_menu_success_2021', function () {
+            $('html,body').animate({
+                scrollTop: $(".crts_class").offset().top
+            }, 'slow');
+        });
+
+        $(document).on('click', '#nav_menu_orbits', function () {
+            $('html,body').animate({
+                scrollTop: $(".orbit_class").offset().top
+            }, 'slow');
+        });
+
+        $(document).on('click', '#nav_menu_feb', function () {
+            $('html,body').animate({
+                scrollTop: $(".feb_class").offset().top
+            }, 'slow');
+        });
+
+        $(document).on('click', '.search', function () {
+            $('.search-bar').addClass('search-bar-active')
+        });
+
+        $(document).on('click', '.search-cancel', function () {
+            $('.search-bar').removeClass('search-bar-active')
+        });
+
+        $(document).on('click', '.user, .already-account', function () {
+            $('.form').addClass('login-active').removeClass('sign-up-active')
+        });
+
+        $(document).on('click', '.sign-up-btn', function () {
+            $('.form').addClass('sign-up-active').removeClass('login-active')
+        });
+
+        $(document).on('click', '.form-cancel', function () {
+            $('.form').removeClass('login-active').removeClass('sign-up-active')
+        });
+
+        $(document).on('click', '.btn_add_cart', function () {
+            a++;
+            var data_cart_function = { id: $(this).data("id"), };
+            data_cart.push(data_cart_function)
+            $('.num-cart-product').text(a);
+        });
+
+        $(document).on('click', '.btn_add_cart_orbits', function () {
+            a++;
+            var data_cart_function = { id: $(this).data("id"), };
+            data_cart_orbits.push(data_cart_function)
+            $('.num-cart-product').text(a);
+        });
+
+        // CRTS display data
+        $.each(data, function (i, item) {
+            html += `
+                <div class="pro">
+                    <img src="`+ data[i].image + `">
+                    <div class="des">
+                        <span>`+ data[i].variant + `</span>
+                        <h5>`+ data[i].title + `</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>`+ data[i].price + `</h4>
+                    </div>
+                    <a href="#" class="cart btn_add_cart" data-id="`+ data[i].id + `" style="padding-top: 10px;"><span class="fa fa-shopping-cart"></span></a>
+                </div>
+            `;
+
+            if (data[i].varian_id == 1) {
+                $('#display_product_crts').append(html)
+            }
+
+            if (data[i].varian_id == 2) {
+                $('#display_product_orbits').append(html)
+            }
+
+            if (data[i].varian_id == 3) {
+                $('#display_product_feb').append(html)
+            }
+
+            html = '';
+        });
+
+
+        function nav_open_close() {
+            if (side_nav == 0) {
+                side_nav = 1;
+                $('#cart_details').empty(); // Clear previous items
+
+                $.each(data_cart, function (j, z) {
+                    $.each(data, function (i, v) {
+                        if (data[i].id == data_cart[j].id) {
+                            const qty = data_cart[j].qty || 1;
+                            const total_price = data[i].price * qty;
+
+                            let html = `
+                                <div class="card mb-3" style="background-color: #f0f6e7; padding: 10px; border: 1px solid #ddd;">
+                                    <div class="row g-0">
+                                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                        <img src="${data[i].image}" alt="${data[i].title}" style="max-width: 100%; max-height: 120px; object-fit: cover;">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body p-2">
+                                        <h6 class="card-title mb-1">${data[i].title}</h6>
+                                        <p class="mb-1" style="font-size: 0.9em;">${data[i].variant}</p>
+                                        <div class="mb-1">
+                                            <i class="fas fa-star text-dark"></i>
+                                            <i class="fas fa-star text-dark"></i>
+                                            <i class="fas fa-star text-dark"></i>
+                                            <i class="fas fa-star text-dark"></i>
+                                            <i class="fas fa-star text-dark"></i>
+                                        </div>
+                                        <p class="mb-1 fw-bold">₱ ${total_price.toFixed(2)}</p>
+
+                                        <div class="d-flex align-items-center mb-2">
+                                            <button class="btn btn-success btn-sm" onclick="updateQty(${j}, 'inc')">+</button>
+                                            <input type="text" value="${qty}" class="form-control form-control-sm text-center mx-2" style="width: 40px;" readonly>
+                                            <button class="btn btn-success btn-sm" onclick="updateQty(${j}, 'dec')">-</button>
+                                        </div>
+
+                                        <button class="btn btn-danger btn-sm w-100" onclick="removeFromCheckout(${j})">REMOVE</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                `;
+
+
+                            $('#cart_details').append(html);
+                        }
+                    });
+                });
+
+                document.getElementById("mySidebar").style.width = "500px";
+            } else {
+                $('#cart_details').empty();
+                side_nav = 0;
+                document.getElementById("mySidebar").style.width = "0";
+            }
+        }
+
+        function updateQty(index, type) {
+            if (type === 'inc') {
+                data_cart[index].qty++;
+            } else if (type === 'dec' && data_cart[index].qty > 1) {
+                data_cart[index].qty--;
+            }
+            nav_open_close(); // Refresh the cart display
+        }
+
+
+    </script>
+</body>
+
+</html>
